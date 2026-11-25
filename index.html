@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FCE4EC" />
+  <meta name="description" content="Our Little Universe — a handmade digital scrapbook full of our favorite moments." />
+  <title>Our Little Universe ♥</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Reusable hand-drawn style illustrations (no external image files needed) -->
+  <svg class="svg-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-rose" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M32 7c10 0 17 7 17 17 0 13-13 23-17 25-4-2-17-12-17-25C15 14 22 7 32 7z" />
+        <path d="M32 13c6.5 0 12 5.5 12 12 0 9-9 16-12 18-3-2-12-9-12-18 0-6.5 5.5-12 12-12z" />
+        <path d="M32 20c3.8 0 6.5 3 6.5 6.8 0 4.5-4.3 8.7-6.5 10-2.2-1.3-6.5-5.5-6.5-10 0-3.8 2.7-6.8 6.5-6.8z" />
+        <path d="M25 15c-4-4.5-10.5-4-13 .5 4.3-.3 7.7 1 10 4M39 15c4-4.5 10.5-4 13 .5-4.3-.3-7.7 1-10 4" />
+        <path d="M32 49v9M32 54c-4-1-7-4-8-7 4 0 7 1 8 4M32 54c4-1 7-4 8-7-4 0-7 1-8 4" />
+      </g>
+    </symbol>
+    <symbol id="i-flower" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+        <path d="M24 17c-3-9-11-9-12-3-1 5 5 8 12 6zM24 17c3-9 11-9 12-3 1 5-5 8-12 6zM24 17c-8-4-14 2-10 7 3 4 9 2 10-4zM24 17c8-4 14 2 10 7-3 4-9 2-10-4zM24 17c-5-7-1-13 4-10 4 3 2 9-4 10z" />
+        <circle cx="24" cy="21" r="3.4" />
+        <path d="M24 25v17M24 32c-4-2-7-1-9 2 4 1 7 0 9-2M24 36c4-2 7-1 9 2-4 1-7 0-9-2" />
+      </g>
+    </symbol>
+    <symbol id="i-leaf" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="1.6">
+        <path d="M8 40C8 20 20 8 40 8c0 20-12 32-32 32z" />
+        <path d="M8 40C16 30 25 21 40 8M17 31l-1-10M26 22l1-10" />
+      </g>
+    </symbol>
+    <symbol id="i-camera" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 16h8l3-5h14l3 5h8v22H6z" />
+        <circle cx="24" cy="27" r="7" />
+        <circle cx="38" cy="21" r="1.4" fill="currentColor" stroke="none" />
+      </g>
+    </symbol>
+    <symbol id="i-heart" viewBox="0 0 48 48">
+      <path d="M24 41S6 30 6 18c0-7 5-11 10-11 4 0 7 2 8 5 1-3 4-5 8-5 5 0 10 4 10 11 0 12-18 23-18 23z" fill="currentColor" />
+    </symbol>
+    <!-- A hand-tied rose bouquet -->
+    <symbol id="i-bouquet" viewBox="0 0 140 150">
+      <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <path d="M70 70v70M70 105c-16-8-28-22-36-40M70 105c16-8 28-22 36-40M70 118c-10-6-18-14-23-24M70 118c10-6 18-14 23-24" />
+        <path d="M52 112c-9-2-15 2-17 9 8 2 14 0 17-9M88 112c9-2 15 2 17 9-8 2-14 0-17-9" />
+      </g>
+      <g color="#C9828C">
+        <use href="#i-rose" x="8" y="12" width="45" height="45" />
+        <use href="#i-rose" x="87" y="12" width="45" height="45" />
+        <use href="#i-rose" x="46" y="0" width="48" height="48" />
+        <use href="#i-rose" x="26" y="44" width="42" height="42" />
+        <use href="#i-rose" x="72" y="44" width="42" height="42" />
+      </g>
+      <g color="#E8AEB7" opacity=".85">
+        <use href="#i-flower" x="0" y="52" width="36" height="36" />
+        <use href="#i-flower" x="104" y="52" width="36" height="36" />
+        <use href="#i-leaf" x="44" y="58" width="30" height="30" />
+        <use href="#i-leaf" x="66" y="58" width="30" height="30" transform="rotate(30 81 73)" />
+      </g>
+      <g fill="none" stroke="#C9828C" stroke-width="2">
+        <path d="M62 118c-12-8-22-4-22 5 0 8 12 10 20 2M78 118c12-8 22-4 22 5 0 8-12 10-20 2" />
+        <path d="M66 124c-6 4-8 12-6 20M74 124c6 4 8 12 6 20" />
+      </g>
+    </symbol>
+  </svg>
+
+  <!-- Soft animated atmosphere -->
+  <div class="ambient" id="ambient" aria-hidden="true">
+    <div class="ambient-glow glow-one"></div>
+    <div class="ambient-glow glow-two"></div>
+    <svg class="ambient-flower flower-a"><use href="#i-flower" /></svg>
+    <svg class="ambient-flower flower-b"><use href="#i-flower" /></svg>
+    <svg class="ambient-flower flower-c"><use href="#i-leaf" /></svg>
+    <svg class="ambient-flower flower-d"><use href="#i-rose" /></svg>
+    <div class="particles" id="particles"></div>
+  </div>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="brand"><span class="brand-heart">♥</span> Our Little Universe</div>
+    <div class="top-actions">
+      <span class="save-status" id="saveStatus" aria-hidden="true"></span>
+      <div class="tool-menu">
+        <button class="tool-btn menu-toggle" id="toolMenuBtn" type="button" aria-label="Open hidden controls" aria-expanded="false" aria-controls="toolMenu" title="Secret controls ♥"><span aria-hidden="true">✿</span></button>
+        <div class="tool-dropdown" id="toolMenu" hidden>
+          <button class="tool-btn" id="musicBtn" type="button" aria-label="Play background music" title="Play / pause music"><span id="musicIcon">♪</span> <span class="tool-label">Play music</span></button>
+          <button class="tool-btn" id="muteBtn" type="button" aria-label="Mute music" title="Mute / unmute"><span id="muteIcon">♫</span> <span class="tool-label">Mute music</span></button>
+          <button class="tool-btn tool-edit" id="editBtn" type="button" aria-pressed="false"><span id="editIcon">✎</span> <span class="tool-label">Edit mode</span></button>
+          <button class="tool-btn" id="resetBtn" type="button" title="Reset the whole album"><span aria-hidden="true">↺</span> <span class="tool-label">Reset</span></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="storage-warning" id="storageWarning" hidden>
+    <strong>Storage is full ♥</strong>
+    Your newest changes are still on screen but could not be saved. Remove a few photos or use <em>Reset</em> to free space.
+  </div>
+
+  <!-- ============================ COVER ============================ -->
+  <section class="cover" id="cover" aria-label="Scrapbook cover">
+    <div class="cover-shadow"></div>
+    <div class="cover-board" id="coverBoard">
+      <div class="cover-corner corner-tl"><svg><use href="#i-rose" /></svg></div>
+      <div class="cover-corner corner-br"><svg><use href="#i-rose" /></svg></div>
+      <div class="cover-corner corner-tr"><svg><use href="#i-flower" /></svg></div>
+      <div class="cover-corner corner-bl"><svg><use href="#i-leaf" /></svg></div>
+
+      <div class="cover-inner">
+        <div class="cover-small">A handmade little keepsake</div>
+        <div class="cover-rule"><span>♥</span></div>
+        <h1 class="cover-title">Our Little<br /><em>Universe</em></h1>
+        <p class="cover-subtitle">A collection of moments, memories, and everything I love about us.</p>
+
+        <div class="cover-date-card">
+          <span class="date-label">Since</span>
+          <span class="editable cover-date" data-text="cover.date">April 22, 2024</span>
+          <span class="date-heart">♥</span>
+        </div>
+
+        <button class="open-btn" id="openBtn" type="button">
+          <span>Open Our Memories</span>
+          <span class="open-arrow">→</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ BOOK ============================== -->
+  <main class="stage" id="stage" hidden>
+    <div class="book-wrap">
+      <div class="book" id="book">
+        <div class="book-left">
+          <div class="left-paper">
+            <svg class="left-rose"><use href="#i-rose" /></svg>
+            <p class="left-script">little moments,<br />big feelings</p>
+            <div class="left-rule"></div>
+            <p class="left-note" id="leftNote">Every page holds a piece of my heart.</p>
+            <p class="left-brand">our little universe ♥</p>
+          </div>
+        </div>
+
+        <div class="book-spine" aria-hidden="true"></div>
+
+        <div class="book-right" id="bookRight">
+
+          <!-- SHEET 1 · FRONT: HOW IT STARTED -->
+          <article class="page" data-page="0">
+            <div class="page-face page-front layout-origin">
+              <header class="page-head">
+                <span class="chapter">Chapter One</span>
+                <h2 class="page-title editable" data-text="p1.title">How It Started</h2>
+              </header>
+              <div class="origin-top">
+                <div class="origin-photo">
+                  <span class="washi washi-pink"></span>
+                  <button class="photo-slot polaroid-photo" data-photo="p1.main" aria-label="Add a photo"></button>
+                  <span class="polaroid-caption editable" data-text="p1.photoCaption">the very beginning</span>
+                </div>
+                <div class="origin-date">
+                  <span class="origin-date-label">Date</span>
+                  <span class="editable origin-date-value" data-text="p1.date">April 22, 2024</span>
+                  <span class="origin-date-label">Place</span>
+                  <span class="editable origin-place-value" data-text="p1.location">The little café downtown</span>
+                  <span class="origin-date-heart">♥</span>
+                </div>
+              </div>
+              <div class="origin-bottom">
+                <p class="script-quote editable" data-text="p1.caption">Every beautiful story has a beginning. Ours is my favorite.</p>
+                <p class="body-note editable" data-text="p1.note">I still remember the way the afternoon light fell, and how everything felt a little brighter after that day.</p>
+              </div>
+            </div>
+
+            <!-- SHEET 1 · BACK (LEFT): MY FAVORITE PERSON -->
+            <div class="page-face page-back custom-back layout-favorite">
+              <span class="scatter-heart heart-one">♥</span>
+              <span class="scatter-heart heart-two">♥</span>
+              <header class="page-head centered">
+                <span class="chapter">Chapter Two</span>
+                <h2 class="page-title editable" data-text="p2.title">My Favorite Person</h2>
+              </header>
+              <div class="favorite-photo">
+                <span class="tape tape-left"></span>
+                <span class="tape tape-right"></span>
+                <button class="photo-slot polaroid-photo" data-photo="p2.main" aria-label="Add a photo"></button>
+                <span class="polaroid-caption editable" data-text="p2.photoCaption">my favorite human</span>
+              </div>
+              <p class="big-script editable" data-text="p2.caption">Out of everyone in this world, you're still my favorite.</p>
+              <div class="heart-row">♥ <span>♥</span> ♥</div>
+              <div class="page-foot"><span class="foot-heart">♥</span><span>02 / 09</span></div>
+            </div>
+          </article>
+
+          <!-- SHEET 2 · FRONT: LETTER PLACEHOLDER -->
+          <article class="page" data-page="1">
+            <div class="page-face page-front layout-letter-slot">
+              <span class="scatter-heart heart-one">♥</span>
+              <header class="page-head centered">
+                <span class="chapter">Chapter Two · a note for you</span>
+                <h2 class="page-title editable" data-text="p2note.title">A Letter For You</h2>
+              </header>
+              <div class="letter-slot-paper">
+                <div class="letter-slot-body editable" data-text="p2note.letter">Dear you,
+
+This page is yours. Write whatever you want me to remember — a promise, a memory, or just the way I make you feel.
+
+I'll keep it safe here forever.</div>
+                <div class="signature-row">
+                  <span class="signature editable" data-text="p2note.signature">With all my love</span>
+                  <span class="signature-line"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- SHEET 2 · BACK (LEFT): LITTLE MOMENTS — 3 BOXES -->
+            <div class="page-face page-back box-collage">
+              <header class="page-head">
+                <span class="chapter">The small things</span>
+                <h2 class="page-title editable" data-text="p3.title">Little Moments</h2>
+              </header>
+              <div class="collage-grid">
+                <figure class="collage-item item-one"><button class="photo-slot" data-photo="p3.a" aria-label="Add a photo"></button><figcaption class="editable" data-text="p3.capA">morning coffee</figcaption></figure>
+                <figure class="collage-item item-two"><button class="photo-slot" data-photo="p3.b" aria-label="Add a photo"></button><figcaption class="editable" data-text="p3.capB">that one laugh</figcaption></figure>
+                <figure class="collage-item item-three"><button class="photo-slot" data-photo="p3.c" aria-label="Add a photo"></button><figcaption class="editable" data-text="p3.capC">slow Sundays</figcaption></figure>
+              </div>
+              <p class="collage-note editable" data-text="p3.note">It's the tiny, ordinary things that I love most.</p>
+            </div>
+          </article>
+
+          <!-- SHEET 3 · FRONT: MORE LITTLE MOMENTS — 3 BOXES -->
+          <article class="page" data-page="2">
+            <div class="page-face page-front box-collage collage-two">
+              <header class="page-head">
+                <span class="chapter">More small things</span>
+                <h2 class="page-title editable" data-text="p3b.title">Little Moments, Too</h2>
+              </header>
+              <div class="collage-grid">
+                <figure class="collage-item item-one"><button class="photo-slot" data-photo="p3b.a" aria-label="Add a photo"></button><figcaption class="editable" data-text="p3b.capA">the way you smile</figcaption></figure>
+                <figure class="collage-item item-two"><button class="photo-slot" data-photo="p3b.b" aria-label="Add a photo"></button><figcaption class="editable" data-text="p3b.capB">inside jokes</figcaption></figure>
+                <figure class="collage-item item-three"><button class="photo-slot" data-photo="p3b.c" aria-label="Add a photo"></button><figcaption class="editable" data-text="p3b.capC">late night talks</figcaption></figure>
+              </div>
+              <p class="collage-note editable" data-text="p3b.note">A few more little things I never want to forget.</p>
+            </div>
+
+            <!-- SHEET 3 · BACK (LEFT): OUR ADVENTURES — 3 COLLAGE BOXES -->
+            <div class="page-face page-back layout-travel">
+              <header class="page-head">
+                <span class="chapter">Places we've been</span>
+                <h2 class="page-title editable" data-text="p4.title">Our Adventures</h2>
+              </header>
+              <div class="travel-grid">
+                <figure class="travel-card">
+                  <button class="photo-slot" data-photo="p4.a" aria-label="Add a photo"></button>
+                  <figcaption><span class="editable travel-place" data-text="p4.placeA">Somewhere by the sea</span><span class="editable travel-date" data-text="p4.dateA">June 2022</span></figcaption>
+                </figure>
+                <figure class="travel-card travel-card-big">
+                  <button class="photo-slot" data-photo="p4.b" aria-label="Add a photo"></button>
+                  <figcaption><span class="editable travel-place" data-text="p4.placeB">Our little city</span><span class="editable travel-date" data-text="p4.dateB">October 2022</span></figcaption>
+                </figure>
+                <figure class="travel-card">
+                  <button class="photo-slot" data-photo="p4.c" aria-label="Add a photo"></button>
+                  <figcaption><span class="editable travel-place" data-text="p4.placeC">The mountains</span><span class="editable travel-date" data-text="p4.dateC">March 2023</span></figcaption>
+                </figure>
+              </div>
+              <p class="travel-caption editable" data-text="p4.caption">Every place was better because you were there.</p>
+            </div>
+          </article>
+
+          <!-- SHEET 4 · FRONT: PHOTO CAROUSEL -->
+          <article class="page" data-page="3">
+            <div class="page-face page-front layout-carousel">
+              <header class="page-head">
+                <span class="chapter">All connected</span>
+                <h2 class="page-title editable" data-text="p4b.title">One Story, Together</h2>
+              </header>
+              <div class="carousel" data-carousel="story">
+                <div class="carousel-track">
+                  <figure class="carousel-slide"><button class="photo-slot" data-photo="p4b.a" aria-label="Add a photo"></button><figcaption class="editable" data-text="p4b.capA">first hello</figcaption></figure>
+                  <figure class="carousel-slide"><button class="photo-slot" data-photo="p4b.b" aria-label="Add a photo"></button><figcaption class="editable" data-text="p4b.capB">first date</figcaption></figure>
+                  <figure class="carousel-slide"><button class="photo-slot" data-photo="p4b.c" aria-label="Add a photo"></button><figcaption class="editable" data-text="p4b.capC">first trip</figcaption></figure>
+                  <figure class="carousel-slide"><button class="photo-slot" data-photo="p4b.d" aria-label="Add a photo"></button><figcaption class="editable" data-text="p4b.capD">us now</figcaption></figure>
+                </div>
+                <button class="carousel-btn carousel-prev" type="button" aria-label="Previous photo">‹</button>
+                <button class="carousel-btn carousel-next" type="button" aria-label="Next photo">›</button>
+                <div class="carousel-dots" aria-hidden="true"></div>
+              </div>
+              <p class="connected-note editable" data-text="p4b.note">One moment led to another, and suddenly it was us.</p>
+            </div>
+
+            <!-- SHEET 4 · BACK (LEFT): ONE IMPORTANT EVENT -->
+            <div class="page-face page-back layout-event">
+              <span class="chapter">A day I'll never forget</span>
+              <h2 class="page-title editable" data-text="p5event.title">One Important Moment</h2>
+              <button class="photo-slot event-photo" data-photo="p5event.main" aria-label="Add a photo"></button>
+              <div class="event-meta">
+                <span class="editable event-date" data-text="p5event.date">August 14, 2021</span>
+                <span class="event-heart">♥</span>
+              </div>
+              <p class="editable event-caption" data-text="p5event.caption">Write about the moment that changed everything.</p>
+            </div>
+          </article>
+
+          <!-- SHEET 5 · FRONT: MY FAVORITE SMILE -->
+          <article class="page" data-page="4">
+            <div class="page-face page-front layout-smile">
+              <header class="page-head">
+                <span class="chapter">The best view</span>
+                <h2 class="page-title editable" data-text="p5.title">My Favorite Smile</h2>
+              </header>
+              <div class="smile-grid">
+                <div class="smile-quote">
+                  <span class="quote-mark">“</span>
+                  <p class="script-quote big editable" data-text="p5.caption">I hope I never run out of reasons to make you smile.</p>
+                  <span class="quote-mark closing">”</span>
+                  <svg class="page-rose"><use href="#i-rose" /></svg>
+                </div>
+                <div class="smile-photo">
+                  <span class="washi washi-peach"></span>
+                  <button class="photo-slot polaroid-photo" data-photo="p5.main" aria-label="Add a photo"></button>
+                  <span class="polaroid-caption editable" data-text="p5.photoCaption">that smile ♥</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- SHEET 5 · BACK (LEFT): RANDOM MEMORIES — 3 BOXES -->
+            <div class="page-face page-back random-three">
+              <header class="page-head">
+                <span class="chapter">Out of nowhere</span>
+                <h2 class="page-title editable" data-text="p6a.title">Random Memories</h2>
+              </header>
+              <div class="random-grid">
+                <figure class="mini-polaroid"><button class="photo-slot" data-photo="p6a.a" aria-label="Add a photo"></button><figcaption class="editable" data-text="p6a.capA">that one afternoon</figcaption></figure>
+                <figure class="mini-polaroid"><button class="photo-slot" data-photo="p6a.b" aria-label="Add a photo"></button><figcaption class="editable" data-text="p6a.capB">a silly inside joke</figcaption></figure>
+                <figure class="mini-polaroid"><button class="photo-slot" data-photo="p6a.c" aria-label="Add a photo"></button><figcaption class="editable" data-text="p6a.capC">just because</figcaption></figure>
+              </div>
+              <p class="scribble-note editable" data-text="p6a.note">still my favorite ♥</p>
+            </div>
+          </article>
+
+          <!-- SHEET 6 · FRONT: RANDOM MEMORIES — 3 BOXES, NO HEADER -->
+          <article class="page" data-page="5">
+            <div class="page-face page-front random-three no-head">
+              <div class="random-grid">
+                <figure class="mini-polaroid"><button class="photo-slot" data-photo="p6.a" aria-label="Add a photo"></button><figcaption class="editable" data-text="p6.capA">a random Tuesday</figcaption></figure>
+                <figure class="mini-polaroid"><button class="photo-slot" data-photo="p6.b" aria-label="Add a photo"></button><figcaption class="editable" data-text="p6.capB">singing in the car</figcaption></figure>
+                <figure class="mini-polaroid"><button class="photo-slot" data-photo="p6.c" aria-label="Add a photo"></button><figcaption class="editable" data-text="p6.capC">the best dessert</figcaption></figure>
+              </div>
+              <p class="scribble-note editable" data-text="p6.note">remember this?</p>
+            </div>
+
+            <!-- SHEET 6 · BACK (LEFT): THINGS I LOVE ABOUT YOU -->
+            <div class="page-face page-back layout-love">
+              <svg class="love-flower love-flower-tl"><use href="#i-flower" /></svg>
+              <svg class="love-flower love-flower-br"><use href="#i-rose" /></svg>
+              <header class="page-head centered">
+                <span class="chapter">A little list</span>
+                <h2 class="page-title editable" data-text="p7.title">Things I Love About You</h2>
+              </header>
+              <div class="love-paper">
+                <p class="love-intro editable" data-text="p7.intro">If I had to make a list, it would never be long enough...</p>
+                <ul class="love-list">
+                  <li><span class="bullet">♥</span><span class="editable" data-text="p7.reasonA">The way you laugh at your own jokes.</span></li>
+                  <li><span class="bullet">♥</span><span class="editable" data-text="p7.reasonB">How you always know when I need a hug.</span></li>
+                  <li><span class="bullet">♥</span><span class="editable" data-text="p7.reasonC">Your kindness to everyone around you.</span></li>
+                  <li><span class="bullet">♥</span><span class="editable" data-text="p7.reasonD">The way you say my name.</span></li>
+                  <li><span class="bullet">♥</span><span class="editable" data-text="p7.reasonE">That I get to call you mine.</span></li>
+                </ul>
+                <p class="love-outro editable" data-text="p7.outro">And a million more things I can't fit on this page.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- SHEET 7 · FRONT: HAPPY MEMORIES — 3 COLLAGE BOXES -->
+          <article class="page" data-page="6">
+            <div class="page-face page-front layout-happy">
+              <header class="page-head centered">
+                <span class="chapter">The good stuff</span>
+                <h2 class="page-title editable" data-text="p7happy.title">Our Happy Memories</h2>
+              </header>
+              <div class="happy-grid">
+                <figure class="happy-card"><button class="photo-slot" data-photo="p7happy.a" aria-label="Add a photo"></button><figcaption class="editable" data-text="p7happy.capA">the day we laughed until we cried</figcaption></figure>
+                <figure class="happy-card"><button class="photo-slot" data-photo="p7happy.b" aria-label="Add a photo"></button><figcaption class="editable" data-text="p7happy.capB">our favorite place</figcaption></figure>
+                <figure class="happy-card"><button class="photo-slot" data-photo="p7happy.c" aria-label="Add a photo"></button><figcaption class="editable" data-text="p7happy.capC">a perfect ordinary day</figcaption></figure>
+              </div>
+              <p class="happy-note editable" data-text="p7happy.note">These are the memories I want to keep forever.</p>
+            </div>
+
+            <!-- SHEET 7 · BACK (LEFT): ROSE BOUQUET / I LOVE YOU ALWAYS -->
+            <div class="page-face page-back bouquet-page">
+              <svg class="bouquet"><use href="#i-bouquet" /></svg>
+              <p class="back-script bouquet-text editable" data-text="back.loveAlways">I LOVE YOU ALWAYS</p>
+              <span class="back-heart">♥ &nbsp;♥ &nbsp;♥</span>
+            </div>
+          </article>
+
+          <!-- SHEET 8 · FRONT: A PAGE FOR US (page 8 right) -->
+          <article class="page" data-page="7">
+            <div class="page-face page-front layout-more">
+              <header class="page-head">
+                <span class="chapter">Just us</span>
+                <h2 class="page-title editable" data-text="p8new.title">A Page For Us</h2>
+              </header>
+              <div class="more-photo">
+                <span class="washi washi-pink"></span>
+                <button class="photo-slot polaroid-photo" data-photo="p10.main" aria-label="Add a photo"></button>
+                <span class="polaroid-caption editable" data-text="p8new.photoCaption">us, being us</span>
+              </div>
+              <div class="more-meta">
+                <span class="editable" data-text="p8new.date">Today, and every day</span>
+                <p class="script-quote editable" data-text="p8new.note">No matter what the season, my favorite place is next to you.</p>
+              </div>
+            </div>
+
+            <!-- SHEET 8 · BACK (LEFT): IF I COULD RELIVE A MOMENT -->
+            <div class="page-face page-back layout-relive">
+              <button class="photo-slot relive-photo" data-photo="p8new.main" aria-label="Add a photo"></button>
+              <div class="relive-card">
+                <span class="chapter">If I could go back</span>
+                <h2 class="page-title editable" data-text="p10.title">If I Could Relive a Moment</h2>
+                <p class="script-quote editable" data-text="p10.caption">It would be that ordinary evening when we talked for hours and I realized, quite suddenly, that I never wanted the night to end. I would go back just to feel that feeling again — and then I would tell you, right then, that I loved you.</p>
+                <span class="relive-heart">♥</span>
+              </div>
+              <svg class="relive-rose"><use href="#i-rose" /></svg>
+            </div>
+          </article>
+
+          <!-- SHEET 9 · FRONT: MY FAVORITE DAYS (page 9 right) -->
+          <article class="page" data-page="8">
+            <div class="page-face page-front layout-days days-portrait">
+              <header class="page-head centered">
+                <span class="chapter">Marked on my calendar</span>
+                <h2 class="page-title editable" data-text="p9.title">My Favorite Days</h2>
+              </header>
+              <div class="film-strip vertical">
+                <div class="film-holes" aria-hidden="true"></div>
+                <div class="day-card">
+                  <button class="photo-slot" data-photo="p9.a" aria-label="Add a photo"></button>
+                  <span class="editable day-date" data-text="p9.dateA">February 14</span>
+                  <span class="editable day-cap" data-text="p9.capA">Our first Valentine's</span>
+                </div>
+                <div class="day-card">
+                  <button class="photo-slot" data-photo="p9.b" aria-label="Add a photo"></button>
+                  <span class="editable day-date" data-text="p9.dateB">May 20</span>
+                  <span class="editable day-cap" data-text="p9.capB">The best surprise</span>
+                </div>
+                <div class="day-card">
+                  <button class="photo-slot" data-photo="p9.c" aria-label="Add a photo"></button>
+                  <span class="editable day-date" data-text="p9.dateC">December 24</span>
+                  <span class="editable day-cap" data-text="p9.capC">Home for the holidays</span>
+                </div>
+                <div class="film-holes" aria-hidden="true"></div>
+              </div>
+              <p class="days-note editable" data-text="p9.note">These are the days I would live all over again.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <nav class="book-nav" aria-label="Book navigation">
+        <button class="nav-btn" id="prevBtn" type="button" aria-label="Previous page">‹</button>
+        <div class="page-indicator"><span id="pageNow">1</span> <span class="indicator-divider">/</span> <span id="pageTotal">9</span><small>pages</small></div>
+        <button class="nav-btn" id="nextBtn" type="button" aria-label="Next page">›</button>
+      </nav>
+      <button class="back-cover" id="backCoverBtn" type="button">← Back to the cover</button>
+      <p class="gesture-hint">Tap the page edges, swipe, or use the arrows to turn pages ♥</p>
+    </div>
+  </main>
+
+  <!-- ======================= PHOTO POSITION EDITOR =================== -->
+  <div class="photo-editor" id="photoEditor" hidden role="dialog" aria-modal="true" aria-labelledby="photoEditorTitle">
+    <div class="photo-editor-card">
+      <h2 id="photoEditorTitle">Make it yours ♥</h2>
+      <p>Drag to move • scroll or pinch to zoom</p>
+      <div class="photo-editor-stage" id="photoEditorStage">
+        <img id="photoEditorImage" alt="Photo preview" draggable="false" />
+        <span class="photo-editor-hint">drag me ♥</span>
+      </div>
+      <div class="photo-editor-controls">
+        <button type="button" id="zoomOutBtn" aria-label="Zoom out">−</button>
+        <input type="range" id="zoomRange" min="1" max="3" step="0.01" value="1" aria-label="Zoom" />
+        <button type="button" id="zoomInBtn" aria-label="Zoom in">+</button>
+        <button type="button" id="resetTransformBtn">Reset</button>
+      </div>
+      <div class="photo-editor-actions">
+        <button type="button" id="editorCancelBtn">Cancel</button>
+        <button type="button" class="editor-save" id="editorSaveBtn">Save photo ♥</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================== PASSWORD GATE ========================= -->
+  <div class="lock-screen" id="lockScreen" role="dialog" aria-modal="true" aria-labelledby="lockTitle">
+    <div class="lock-card">
+      <svg class="lock-rose"><use href="#i-rose" /></svg>
+      <p class="lock-eyebrow">A little secret just for you</p>
+      <h2 id="lockTitle">Our Little Universe</h2>
+      <p class="lock-sub">Enter the password to open our memories.</p>
+      <form class="lock-form" id="lockForm" autocomplete="off">
+        <input type="password" id="lockInput" placeholder="Password" aria-label="Password" autocomplete="off" required />
+        <button type="submit">Open ♥</button>
+      </form>
+      <p class="lock-error" id="lockError" aria-live="polite"></p>
+      <p class="lock-hint">Wrong password? Just try again ♥</p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <input type="file" id="filePicker" accept="image/jpeg,image/png,image/webp" hidden />
+  <audio id="backgroundMusic" src="assets/music/background.mp3" loop preload="auto"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
