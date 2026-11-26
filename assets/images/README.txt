@@ -1,3 +1,12 @@
-Photos uploaded through the website are stored in the browser's LocalStorage,
-not in this folder. You can leave this folder empty. If you want to bundle a
-photo with the site, place it here and reference it from a custom edit.
+Put starting photos in this folder using the exact photo-slot ID as the
+filename, for example:
+
+  p1.main.jpg
+  p3.a.jpeg
+  p9.b.webp
+
+Supported extensions: jpg, jpeg, png, webp.
+
+On first load, any empty slot whose matching file exists here is filled
+automatically and saved into the browser's IndexedDB. Photos uploaded later
+through the website take priority over these bundled files.

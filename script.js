@@ -9,9 +9,46 @@
   const DB_NAME = 'ourLittleUniverse';
   const DB_VERSION = 1;
   const PHOTO_STORE = 'photos';
+
+  // Photos shipped with the site. Used only when that slot has no saved photo.
+  const DEFAULT_PHOTOS = {
+    'p1.main': 'assets/images/p1.main.jpeg',
+    'p2.main': 'assets/images/p2.main.jpg',
+    'p3.a': 'assets/images/p3.a.jpeg',
+    'p3.b': 'assets/images/p3.b.jpg',
+    'p3.c': 'assets/images/p3.c.jpeg',
+    'p3b.a': 'assets/images/p3b.a.jpeg',
+    'p3b.b': 'assets/images/p3b.b.jpg',
+    'p3b.c': 'assets/images/p3b.c.jpg',
+    'p4.a': 'assets/images/p4.a.jpg',
+    'p4.b': 'assets/images/p4.b.jpeg',
+    'p4.c': 'assets/images/p4.c.jpeg',
+    'p4b.a': 'assets/images/p4b.a.jpeg',
+    'p4b.b': 'assets/images/p4b.b.jpeg',
+    'p4b.c': 'assets/images/p4b.c.jpeg',
+    'p4b.d': 'assets/images/p4b.d.jpeg',
+    'p5event.main': 'assets/images/p5event.main.jpeg',
+    'p5.main': 'assets/images/p5.main.jpg',
+    'p6a.a': 'assets/images/p6a.a.jpeg',
+    'p6a.b': 'assets/images/p6a.b.jpg',
+    'p6a.c': 'assets/images/p6a.c.jpg',
+    'p6.a': 'assets/images/p6.a.jpg',
+    'p6.b': 'assets/images/p6.b.jpg',
+    'p6.c': 'assets/images/p6.c.jpg',
+    'p7happy.a': 'assets/images/p7happy.a.jpg',
+    'p7happy.b': 'assets/images/p7happy.b.jpeg',
+    'p7happy.c': 'assets/images/p7happy.c.jpeg',
+    'p10.main': 'assets/images/p10.main.jpg',
+    'p9.a': 'assets/images/p9.a.jpeg',
+    'p9.b': 'assets/images/p9.b.jpeg',
+    'p9.c': 'assets/images/p9.c.jpg'
+  };
   const UNLOCK_KEY = 'ourLittleUniverse.unlocked';
   const OPTIMIZED_KEY = 'ourLittleUniverse.photosOptimized';
   const MUSIC_AUTO_KEY = 'ourLittleUniverse.musicAuto';
+  const BUNDLED_RELOAD_KEY = 'ourLittleUniverse.bundledReload';
+  const BUNDLED_RELOAD_VERSION = 4;
+  const CONTAIN_SLOTS = ['p4b.d'];
   const PASSWORD = 'ilovejelay';
   const TOTAL_PAGES = document.querySelectorAll('.page').length;
 
@@ -243,6 +280,8 @@
       const stored = await idbGetAllPhotos();
       state.photos = stored;
       Object.keys(stored).forEach(id => { if (photoSlots[id]) renderPhoto(id); });
+      await loadBundledPhotos();
+      await refreshReplacedBundledPhoto();
       await optimizeSavedPhotos();
     } catch (err) {
       warnPhotoSave(err);
@@ -472,23 +511,30 @@
 
     const sw = img.naturalWidth || img.width || 1;
     const sh = img.naturalHeight || img.height || 1;
-    const cover = Math.max(viewW / sw, viewH / sh);
-    const dw = sw * cover * transform.z;
-    const dh = sh * cover * transform.z;
+    const fitScale = settings.contain
+      ? Math.min(viewW / sw, viewH / sh)
+      : Math.max(viewW / sw, viewH / sh);
+    const dw = sw * fitScale * transform.z;
+    const dh = sh * fitScale * transform.z;
     const dx = (viewW / 2 + transform.x - dw / 2) * scale;
     const dy = (viewH / 2 + transform.y - dh / 2) * scale;
     ctx.drawImage(img, dx, dy, dw * scale, dh * scale);
     return canvas.toDataURL('image/jpeg', quality);
   }
 
-  function autoFitPhoto(dataUrl, size) {
+  function photoOptions(id, size) {
+    return {
+      maxDimension: photoTargetMax(size),
+      quality: 0.76,
+      contain: CONTAIN_SLOTS.indexOf(id) !== -1
+    };
+  }
+
+  function autoFitPhoto(dataUrl, size, id) {
     return loadImage(dataUrl).then(img => {
       const viewW = 600;
       const viewH = Math.max(1, Math.round(viewW / (size.ratio > 0 ? size.ratio : 1)));
-      return bakePhoto(img, { x: 0, y: 0, z: 1 }, viewW, viewH, {
-        maxDimension: photoTargetMax(size),
-        quality: 0.76
-      });
+      return bakePhoto(img, { x: 0, y: 0, z: 1 }, viewW, viewH, photoOptions(id, size));
     });
   }
 
@@ -513,10 +559,7 @@
           const size = getSlotSize(id);
           const viewW = 600;
           const viewH = Math.max(1, Math.round(viewW / (size.ratio > 0 ? size.ratio : 1)));
-          state.photos[id] = bakePhoto(img, { x: 0, y: 0, z: 1 }, viewW, viewH, {
-            maxDimension: photoTargetMax(size),
-            quality: 0.76
-          });
+          state.photos[id] = bakePhoto(img, { x: 0, y: 0, z: 1 }, viewW, viewH, photoOptions(id, size));
         } catch (err) {
           console.warn('Could not shrink one saved photo:', err);
         }
@@ -530,6 +573,70 @@
       toast('Your photos are now lighter ♥');
     } finally {
       try { localStorage.setItem(OPTIMIZED_KEY, '1'); } catch (err) { /* ignore */ }
+    }
+  }
+
+  async function findBundledPhotoUrl(id, version) {
+    const base = DEFAULT_PHOTOS[id];
+    if (!base) return null;
+    const dot = base.lastIndexOf('.');
+    const stem = dot === -1 ? base : base.slice(0, dot);
+    const candidates = [base];
+    ['jpg', 'jpeg', 'png', 'webp'].forEach(ext => {
+      const alt = stem + '.' + ext;
+      if (candidates.indexOf(alt) === -1) candidates.push(alt);
+    });
+    for (const url of candidates) {
+      const check = version ? url + '?v=' + version : url;
+      try {
+        const res = await fetch(check, { method: 'HEAD' });
+        if (res.ok) return check;
+      } catch (err) { /* try next extension */ }
+    }
+    return null;
+  }
+
+  async function loadBundledPhotos() {
+    for (const id of Object.keys(DEFAULT_PHOTOS)) {
+      if (state.photos[id]) continue;
+      try {
+        const url = await findBundledPhotoUrl(id);
+        if (!url) continue;
+        const img = await loadImage(url);
+        const size = getSlotSize(id);
+        const viewW = 600;
+        const viewH = Math.max(1, Math.round(viewW / (size.ratio > 0 ? size.ratio : 1)));
+        const fitted = bakePhoto(img, { x: 0, y: 0, z: 1 }, viewW, viewH, photoOptions(id, size));
+        state.photos[id] = fitted;
+        await idbSetPhoto(id, fitted);
+        renderPhoto(id);
+      } catch (err) {
+        console.warn('Could not load bundled photo ' + id + ':', err);
+      }
+    }
+  }
+
+  async function refreshReplacedBundledPhoto() {
+    const id = 'p4b.d';
+    if (!DEFAULT_PHOTOS[id]) return;
+    let version = 0;
+    try { version = Number(localStorage.getItem(BUNDLED_RELOAD_KEY)) || 0; } catch (err) { /* private mode */ }
+    if (version >= BUNDLED_RELOAD_VERSION) return;
+    try {
+      const url = await findBundledPhotoUrl(id, BUNDLED_RELOAD_VERSION);
+      if (!url) return;
+      const img = await loadImage(url);
+      const size = getSlotSize(id);
+      const viewW = 600;
+      const viewH = Math.max(1, Math.round(viewW / (size.ratio > 0 ? size.ratio : 1)));
+      const fitted = bakePhoto(img, { x: 0, y: 0, z: 1 }, viewW, viewH, photoOptions(id, size));
+      state.photos[id] = fitted;
+      await idbSetPhoto(id, fitted);
+      renderPhoto(id);
+    } catch (err) {
+      console.warn('Could not refresh bundled photo:', err);
+    } finally {
+      try { localStorage.setItem(BUNDLED_RELOAD_KEY, String(BUNDLED_RELOAD_VERSION)); } catch (err) { /* ignore */ }
     }
   }
 
@@ -596,10 +703,7 @@
     const h = Math.max(1, photoEditorStage.clientHeight || Math.round(w / pendingSlotRatio));
     let fitted;
     try {
-      fitted = bakePhoto(editorSource, editorTransform, w, h, {
-        maxDimension: photoTargetMax(pendingSlotSize),
-        quality: 0.76
-      });
+      fitted = bakePhoto(editorSource, editorTransform, w, h, photoOptions(editorTargetId, pendingSlotSize));
     } catch (err) {
       console.warn('Could not save adjusted photo:', err);
       toast('That photo could not be saved — please try again ♥');
@@ -716,7 +820,7 @@
       const dataUrl = await compressImage(file);
       let fitted = dataUrl;
       try {
-        fitted = await autoFitPhoto(dataUrl, pendingSlotSize);
+        fitted = await autoFitPhoto(dataUrl, pendingSlotSize, id);
       } catch (fitErr) {
         console.warn('Auto-fit failed; using original crop:', fitErr);
       }
@@ -1036,19 +1140,70 @@
   }
 
   /* ================================================================== *
-   *  ONE-TIME DATE UPDATE — replace the old saved first-page date
+   *  ONE-TIME TEXT UPDATE — replace old saved defaults with the new words
    * ================================================================== */
-  function updateFirstDate() {
-    ['p1.date', 'cover.date'].forEach(id => {
+  const TEXT_UPDATES = {
+    'p1.date': { from: ['August 14, 2021', 'April 22, 2024'], to: 'MAY 9' },
+    'cover.date': { from: ['August 14, 2021'], to: 'April 22, 2024' },
+    'p1.location': { from: ['The little café downtown'], to: 'The milktea shop' },
+    'p2note.letter': {
+      from: ["Dear you,\n\nThis page is yours. Write whatever you want me to remember — a promise, a memory, or just the way I make you feel.\n\nI'll keep it safe here forever."],
+      to: 'Dear my Lovelove,\n\nKahit na madalas maldita ka i will always love every part of youuuu!! I ALWAYS LOVE YOUUUU'
+    },
+    'p2note.signature': { from: ['With all my love'], to: 'With all my love. Your&nbsp;&nbsp;Poging Jairo' },
+    'p3.capA': { from: ['morning coffee'], to: 'Chowking' },
+    'p3.capB': { from: ['that one laugh'], to: 'jabii' },
+    'p3.capC': { from: ['slow Sundays'], to: 'gala before uwi' },
+    'p3b.capA': { from: ['the way you smile'], to: 'first ice creamm!!!' },
+    'p3b.capB': { from: ['inside jokes'], to: 'coffeee' },
+    'p3b.capC': { from: ['late night talks'], to: 'bracelet:>' },
+    'p4.placeA': { from: ['Somewhere by the sea'], to: 'ILOG W/ BOTCHI' },
+    'p4.dateA': { from: ['June 2022'], to: 'MAY 2025' },
+    'p4.placeB': { from: ['Our little city'], to: 'BAGUIO' },
+    'p4.dateB': { from: ['October 2022'], to: 'JUNE 2024' },
+    'p4.placeC': { from: ['The mountains'], to: 'CAMP JOHN HAY' },
+    'p4.dateC': { from: ['March 2023'], to: 'JUNE 2024' },
+    'p4b.capA': { from: ['first hello'], to: 'FIRST DATE' },
+    'p4b.capB': { from: ['first date'], to: '2ND DATE' },
+    'p4b.capC': { from: ['first trip'], to: 'FIRST TRIP' },
+    'p4b.capD': { from: ['us now'], to: 'US NOW' },
+    'p5event.date': { from: ['August 14, 2021'], to: 'APRIL 20, 2024' },
+    'p5event.caption': { from: ['Write about the moment that changed everything.'], to: '1ST ANNIVERSARY!!!' },
+    'p5.caption': { from: ['I hope I never run out of reasons to make you smile.'], to: 'I WILL NEVER RUN OUT OF REASONS TO MAKE YOU SMILE.' },
+    'p6a.capB': { from: ['a silly inside joke'], to: 'hihi' },
+    'p6a.capC': { from: ['just because'], to: 'sm' },
+    'p6.capA': { from: ['a random Tuesday'], to: 'a random night' },
+    'p6.capB': { from: ['singing in the car'], to: 'bday dinner' },
+    'p7.reasonA': { from: ['The way you laugh at your own jokes.'], to: 'The way you laugh at our corny jokes BUWHAHAH.' },
+    'p7.reasonB': { from: ['How you always know when I need a hug.'], to: 'How you always know when I need your armpits' },
+    'p7happy.capA': { from: ['the day we laughed until we cried'], to: 'your bdayyyy!!' },
+    'p7happy.capB': { from: ['our favorite place'], to: 'day of our first kiss' },
+    'p7happy.capC': { from: ['a perfect ordinary day'], to: 'new yearrr!!' },
+    'p10.caption': {
+      from: ['It would be that ordinary evening when we talked for hours and I realized, quite suddenly, that I never wanted the night to end. I would go back just to feel that feeling again — and then I would tell you, right then, that I loved you.'],
+      to: "I would choose that simple evening when we talked for hours, sharing little stories and laughing about the smallest things. I remember how, without even realizing it, you made an ordinary night feel like something I wanted to hold on to forever. If I could go back, I wouldn't change a single thing. I'd just stay a little longer, look at you a little more, and tell you how much you mean to me. And this time, I wouldn't keep it to myself. I'd tell you that I was already falling in love with you, and that if I had to choose all over again, I'd still choose you"
+    },
+    'p9.dateA': { from: ['February 14'], to: 'JULY 23' },
+    'p9.capA': { from: ["Our first Valentine's"], to: 'First SM' },
+    'p9.dateB': { from: ['May 20'], to: 'FEBRUARY 9' },
+    'p9.capB': { from: ['The best surprise'], to: 'Our First CFO' },
+    'p9.dateC': { from: ['December 24'], to: 'NOVEMBER 24' },
+    'p9.capC': { from: ['Home for the holidays'], to: 'We bought your printer' }
+  };
+
+  function updateSavedTexts() {
+    let changed = false;
+    Object.keys(TEXT_UPDATES).forEach(id => {
       const el = textMap.get(id);
       if (!el) return;
       const saved = state.text[id];
-      if (!saved || saved === 'August 14, 2021') {
-        state.text[id] = 'April 22, 2024';
-        el.innerHTML = 'April 22, 2024';
-        scheduleSave();
+      if (!saved || TEXT_UPDATES[id].from.indexOf(saved) !== -1) {
+        state.text[id] = TEXT_UPDATES[id].to;
+        el.innerHTML = TEXT_UPDATES[id].to;
+        changed = true;
       }
     });
+    if (changed) scheduleSave();
   }
 
   /* ================================================================== *
@@ -1181,7 +1336,7 @@
   buildPhotoSlots();
   loadState();
   applySavedState();
-  updateFirstDate();
+  updateSavedTexts();
   initSavedPhotos();
   buildParticles();
   updateNav();

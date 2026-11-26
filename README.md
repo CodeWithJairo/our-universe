@@ -6,7 +6,7 @@ A handmade-feeling digital scrapbook for two people. Built with plain HTML, CSS 
 
 - A romantic hardcover **cover page** with an opening animation and an editable anniversary date.
 - **9 unique scrapbook pages** with realistic 3D page-turning, shadows, stacking, page numbers, arrow / keyboard / swipe / edge-tap navigation. The "One Story, Together" page also has its own swipeable photo carousel.
-- **31 editable photo frames** across the two-page spreads. Click any frame to upload a JPG, PNG or WEBP — each image is automatically cropped to fit its frame, and you can drag / zoom it with **Adjust** if you want a different crop. Replace or delete photos at any time.
+- **31 editable photo frames** across the two-page spreads. Images placed in `assets/images/` (named after the slot ID, e.g. `p1.main.jpg`) are loaded automatically as the starting photos; photos you upload later override them. Every image is cropped to fit its frame, and you can drag / zoom it with **Adjust**. Replace or delete photos at any time.
 - **Editable captions, titles, dates, locations, messages and the love letter** — just turn on *Edit mode* and click the text.
 - **Automatic saving** in the browser's LocalStorage, with compressed photos, a storage-full warning and a confirmed reset option.
 - Subtle pink floral background animations (petals, hearts, flowers) that respect `prefers-reduced-motion`.
