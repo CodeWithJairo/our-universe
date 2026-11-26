@@ -1144,7 +1144,7 @@
    * ================================================================== */
   const TEXT_UPDATES = {
     'p1.date': { from: ['August 14, 2021', 'April 22, 2024'], to: 'MAY 9' },
-    'cover.date': { from: ['August 14, 2021'], to: 'April 22, 2024' },
+    'cover.date': { from: ['August 14, 2021', 'April 22, 2024'], to: 'April 22, 2023' },
     'p1.location': { from: ['The little café downtown'], to: 'The milktea shop' },
     'p2note.letter': {
       from: ["Dear you,\n\nThis page is yours. Write whatever you want me to remember — a promise, a memory, or just the way I make you feel.\n\nI'll keep it safe here forever."],
